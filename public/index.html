@@ -12,69 +12,78 @@
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">
-                <img src="img/logo.png">
-                Pokédex
-              </a>
-            </div>
-          </div>
-      </nav>
-      <div class="container">
-        <!-- pokemon -->
-        <div ng-controller="PokemonController as pkmCtrl">
-          <div class="page-header">
-            <h1>
-              {{pkmCtrl.pokemon.name}}
-              <small>{{pkmCtrl.pokemon.species}}</small>
-              <span class="label label-primary pull-right">#{{pkmCtrl.pokemon.id}}</span>
-            </h1>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <img class="avatar center-block" ng-src="img/pokemons/{{pkmCtrl.pokemon.name | lowercase}}.jpg">
-            </div>
-            <div class="col-md-6">
-              <ul class="nav nav-tabs nav-justified">
-                <li class="active"><a href="#">Pokedex</a></li>
-                <li><a href="#">Estadisticas</a></li>
-                <li><a href="#">Evolución</a></li>
-              </ul>
-              <div class="tab-content">
-                <div>
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                      <strong>Tipo: </strong>
-                      <span class="pull-right">{{pkmCtrl.pokemon.type.join(', ')}}</span>
-                    </li>
-                    <li class="list-group-item">
-                      <strong>Altura:</strong>
-                      <span class="pull-right">{{pkmCtrl.pokemon.height}}</span>
-                    </li>
-                    <li class="list-group-item">
-                      <strong>Peso: </strong>
-                      <span class="pull-right">{{pkmCtrl.pokemon.weight}}</span>
-                    </li>
-                    <li class="list-group-item">
-                      <strong>Habilidades: </strong>
-                      <span class="pull-right">{{pkmCtrl.pokemon.abilities.join(', ')}}</span>
-                    </li>
-                  </ul>
+            <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">
+                    <img src="img/logo.png">
+                    Pokédex
+                  </a>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-        <!-- /pokemon -->
-      </div>
-      <script src="js/lib/angular.min.js"></script>
-      <script src="js/app.js"></script>
+        </nav>
+        <div class="container">
+            <!-- pokemon -->
+            <div ng-controller="PokemonController as pkmCtrl">
+                <div class="page-header">
+                    <h1>
+                        {{pkmCtrl.pokemon.name}} <small>{{pkmCtrl.pokemon.species}} </small>
+                        <span class="label label-primary pull-right">#{{pkmCtrl.pokemon.id}}</span>
+                    </h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img class="avatar center-block" ng-src="img/pokemons/{{pkmCtrl.pokemon.name | lowercase}}.jpg">
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="active"><a href="#">Pokedex</a></li>
+                            <li><a href="#">Estadisticas</a></li>
+                            <li><a href="#">Evolución</a></li>
+                        </ul>
+                    <div class="tab-content">
+                    <div>
+                      <ul class="list-group">
+                        <li class="list-group-item">
+                          <strong>Tipo: </strong>
+                          <span class="pull-right">
+                              <!-- La directiva ng-repeat nos repetirá el span por cada uno de los elementos del array recorrido -->
+                              <span ng-repeat="type in pkmCtrl.pokemon.type" class="label type-{{type | lowercase }}"> <!-- De esta manera usaremos una clase u otra dependiendo de el tipo de pokemon-->
+                                  <!--Este tipo es cada uno de los elementos del array iterado-->
+                                  {{type}}
+                              </span>
+                          </span>
+                        </li>
+                        <li class="list-group-item">
+                          <strong>Altura:</strong>
+                          <span class="pull-right">{{pkmCtrl.pokemon.height}}</span>
+                        </li>
+                        <li class="list-group-item">
+                          <strong>Peso: </strong>
+                          <span class="pull-right">{{pkmCtrl.pokemon.weight}}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Habilidades: </strong>
+
+                            <!-- Hacemos lo mismo que con los tipos pero está vez repetimos los li y solo tenemos que escribir uno -->
+                            <ul>
+                                <li ng-repeat="habilidad in pkmCtrl.pokemon.abilities">
+                                <!-- De esta manera no tenemos que agregar más habilidades aquí si no en el controlador o vendrán desde una API -->
+                                {{habilidad}}
+                            </ul>
+                        </li>
+                      </ul>
+                    </div>
+                    </div> <!--/tab-content-->
+                </div><!--/row-->
+            </div> <!-- /pokemon -->
+        </div> <!--/container-->
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/app.js"></script>
     </body>
 <html>
