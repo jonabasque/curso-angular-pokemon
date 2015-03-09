@@ -42,12 +42,17 @@
                     </div>
                     <div class="col-md-6">
                         <ul class="nav nav-tabs nav-justified">
-                            <li class="active"><a href="#">Pokedex</a></li>
-                            <li><a href="#">Estadisticas</a></li>
-                            <li><a href="#">Evolución</a></li>
+                            <!-- La directiva ng-click nos prove la posibilidad de ejecutar una expresión cuando se haga click en el elemento. En este caso cambiaremos el valor de la variable tab para mostrarla -->
+                            <li ng-click="tab = 1" ng-class="active : tab === 2"><a href="#">Pokedex</a></li>
+                            <!--Pero como tendríamos el problema de la clase active tenemos que agregarsela a cada elemento cuando se pulse el elemnto-->
+                            <li ng-class="active : tab === 2" ng-click="tab = 2"><a href="#">Estadisticas</a></li>
+                            <li ng-class="active : tab === 3" ng-click="tab = 3"><a href="#">Evolución</a></li>
                         </ul>
-                    <div class="tab-content">
-                    <div>
+                    <!-- Con la directiva ng-init inicalizamos una variable con un valor, algo que no es muy buena prácica hacer en el HTML pero para una variable de control viene muy bien no tener que traerla desde un controlador. Angular nos provee esta funcionalidad.-->
+                    <div ng-init="tab = 1" class="tab-content">
+
+                        <!-- Usamos la directiva ng-show por si sola (sin depender de otra directiva como hacemos en las flechas de la evolución) para mostra o no el contenido del tab cuando el valor sea el suyo, que lo cambiaremos cuando se pulse ene el-->
+                    <div ng-show="tab === 1"> <!--Pokedex-->
                       <ul class="list-group">
                         <li class="list-group-item">
                           <strong>Tipo: </strong>
@@ -79,8 +84,9 @@
                         </li>
                       </ul>
                     </div>
-                    <!-- Stadisticas -->
-                    <div>
+
+                    <!-- Hacemos lo mismo que con el tab de caracteristicas-->
+                    <div ng-show="tab === 2"> <!-- Stadisticas -->
                       <ul class="list-group">
                         <li class="list-group-item">
                           <strong>HP</strong>
@@ -112,17 +118,20 @@
                         </li>
                       </ul>
                     </div>
-                    <!-- Evolution -->
-                    <div>
-                      <div class="text-center" ng-repeat="pokemon in pkmCtrl.pokemon.evolution">
-                        <a href="#">
-                          <img src="img/pokemons/{{pokemon | lowercase}}.jpg" width="160">
-                          <p>
-                            <strong>{{pokemon}}</strong>
-                          </p>
-                        </a>
-                        <span ng-hide="$last" class="glyphicon glyphicon-arrow-down"></span>
-                      </div>
+
+                    <!-- Y hacemos lo mismo que con caracteristicas y estadisticas -->
+                    <div ng-show="tab === 3"> <!-- Evolution -->
+                        <!--Repetimos este div tantas veces como elementos tengamos en el array evolution y así dibujamos su evolución, tal y comom hemos hecho en los stributos type y abilities de las caracteristicas del pokemon -->
+                        <div class="text-center" ng-repeat="pokemon in pkmCtrl.pokemon.evolution">
+                            <a href="#">
+                              <img src="img/pokemons/{{pokemon | lowercase}}.jpg" width="160">
+                              <p>
+                                <strong>{{pokemon}}</strong>
+                              </p>
+                            </a>
+                            <!-- como no queremos la flecha hacia abajo en el último pokemon, usamos la directiva ng-hide que nos esconderá el elemento que le indiquemos de la iteracción con ng-repeat -->
+                            <span ng-hide="$last" class="glyphicon glyphicon-arrow-down"></span>
+                        </div>
                     </div>
                     </div> <!--/tab-content-->
                 </div><!--/row-->
