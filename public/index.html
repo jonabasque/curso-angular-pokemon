@@ -138,6 +138,53 @@
                     </div>
                     </div> <!--/tab-content-->
                 </div><!--/row-->
+
+                <!-- comments -->
+                <!-- Agregamos el controlador a la seccion de comentarios-->
+                <section ng-controller="ComentsController as cmtsCtrl">
+                    <!-- Cuando hagamos click en el boton mostraremos el div de comentarios-->
+                    <button ng-click="cmtsCtrl.toogle()" ng-hide="cmtsCtrl.show" class="btn btn-primary">Mostrar comentarios <span class="badge">{{cmtsCtrl.comments.length}}</span></button>
+                    <!--Bindeamos o asociamos el panel de comentarios a la propiedad show del controlador ComentsController -->
+                    <div ng-show="cmtsCtrl.show === true" class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title"> Comentarios
+                                <!-- Igual que en el button de ver comentarios añadimos la llamada al método toogle() para que nos cambie el estado. -->
+                                <button ng-click="cmtsCtrl.toogle()" class="close pull-right">&times;</button>
+                            </h1>
+                        </div><!-- /panel-heading-->
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                <textarea placeholder="Comenta algo acerca de  {{pkmCtrl.pokemon.name}}" class="form-control"></textarea>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="email" placeholder="Inserta tu email" class="form-control">
+                                <label>
+                                <input id="anonymous" type="checkbox">
+                                Anónimo
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-lg">Comentario</button>
+                            </div>
+                          </div>
+                        </form>
+                        <blockquote>
+                            <p>OMG Bulbasaur is AMAZING!!!</p>
+                            <footer>
+                            Por y <a href="mailto:pepe@pepe.com">pepe@pepe.com</a> on <span>Sep 12, 2014, 11:00:00 PM</span>
+                            </footer>
+                        </blockquote>
+                        <blockquote>
+                            <p>Nah, I hate it -_-</p>
+                            <footer>
+                            Por <em>Anonymous</em> on <span>Sep 12, 2014, 11:00:00 PM</span>
+                            </footer>
+                        </blockquote>
+                    </div><!-- /panel-body-->
+                  </div> <!-- /panel-primary-->
+                </section><!-- /comments -->
             </div> <!-- /pokemon -->
         </div> <!--/container-->
         <script src="js/lib/angular.min.js"></script>

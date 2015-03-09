@@ -39,5 +39,16 @@
         };
     });
 
+    //Creamos el controladro de comentarios
+    app.controller('ComentsController', function(){
+        this.comments = [];
+        this.show = false; //para mostrar o no el panel.
+
+        //cada vez que ejecutemos este método invertiremos el estado de show
+        this.toogle = function(){
+            this.show = !this.show;
+        }
+    });
+
 
 })();
