@@ -14,16 +14,30 @@
             weight: '15.2 lbs',
             abilities: ['Overgrow', 'Chlorophyll'],
             stats: {
-              hp: 45,
-              attack: 49,
-              defense: 49,
-              "sp.atk": 65,
-              "sp.def": 65,
-              speed: 45,
-              total: 318
+                hp: 45,
+                attack: 49,
+                defense: 49,
+                "sp.atk": 65,
+                "sp.def": 65,
+                speed: 45,
+                total: 318
             },
             evolution: [ "Bulbasaur", "Ivysaur", "Venusaur" ]
 
         };
+
+        //EL MISMO CONTROLADOR PUEDE CONTENER OTRO OBJETO CREADO AQUI??
     });
+
+    //Creamos otro controlador
+    app.controller('TabsController', function(){
+        this.tab = 1;
+
+        //Creamosn esta función que será llamada desde la directiva ng-click para seleccionar una u otra.
+        this.selectTab = function(tab){
+            this.tab = tab;
+        };
+    });
+
+
 })();
