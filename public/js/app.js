@@ -43,10 +43,21 @@
     app.controller('ComentsController', function(){
         this.comments = [];
         this.show = false; //para mostrar o no el panel.
+        //Aqui tendremos el último comentario.
+        this.comment = {};
 
         //cada vez que ejecutemos este método invertiremos el estado de show
         this.toogle = function(){
             this.show = !this.show;
+        };
+
+        //llamaremos a este método cada dez que se marque el checkbox, gracias a la directiva ng-change
+        this.anonymousChanged = function(){
+            //Si nuestro checkbox está a true...
+            if(this.comment.anonymous){
+                //cambiamos el valor del campo email a cadena vacia.
+                this.comment.email = "";
+            }
         }
     });
 
