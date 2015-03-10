@@ -153,13 +153,14 @@
                             </h1>
                         </div><!-- /panel-heading-->
                         <div class="panel-body">
-                            <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                <!-- Agregamos la directiva ng-model que asociaremos al objeto comment propiedad body-->
-                                <textarea ng-model="cmtsCtrl.comment.body"placeholder="Comenta algo acerca de  {{pkmCtrl.pokemon.name}}" class="form-control"></textarea>
-                            </div>
-                            <div class="col-sm-4">
+                            <!-- Con la directiva ng-submit conseguimos enviar los datos a un metodo de nuestro controlador de nuestro modulo JS, en lugar de enviarlo directamente al backend  -->
+                            <form ng-submit="cmtsCtrl.addComment()" class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <!-- Agregamos la directiva ng-model que asociaremos al objeto comment propiedad body-->
+                                        <textarea ng-model="cmtsCtrl.comment.body"placeholder="Comenta algo acerca de  {{pkmCtrl.pokemon.name}}" class="form-control"></textarea>
+                                    </div>
+                                <div class="col-sm-4">
                                 <!-- Ahora cambiamos ng-model usando el controlador u accediendo a su objeto comment para tener la lógica en el controlador.-->
                                 <!-- Y con la directiva ng-disabled desabilitamos el input de formulario cuando la expresión sea true-->
                                 <input ng-model="cmtsCtrl.comment.email" ng-disabled="cmtsCtrl.comment.anonymous" type="email" placeholder="Inserta tu email" class="form-control">
@@ -171,24 +172,20 @@
                                 </label>
                             </div>
                             <div class="col-sm-2">
-                                <button class="btn btn-lg">Comentario</button>
+                                <!-- Le incluimos el atributo type con valor submit al boton para enviar el formulario a un metodo del controlador que pongamos en la directiva ng-submit-->
+                                <button type="submit" class="btn btn-lg">Comentario</button>
                             </div>
                           </div>
                         </form>
-                        <blockquote>
+                        <!-- Con la directiv ng-repeat mostramos todos los comentarios del array comments-->
+                        <blockquote ng-repeat="comment in cmtsCtrl.comments">
                             <!-- Ahora relacionamos la propiedad body con este elemento. -->
-                            <p>{{cmtsCtrl.comment.body}}</p>
+                            <p>{{comment.body}}</p>
                             <footer>
                             <!-- La propiedad email con este-->
                             <!-- Con la directiva ng-if quitamos del DOM el elemnto si cuando la condición es true-->
-                            Por y <a ng-if="!cmtsCtrl.comment.anonymous" href="mailto:{{cmtsCtrl.comment.email}}">{{cmtsCtrl.comment.email}}</a> <!-- E insertaremos este elemento en el DOM cuando el atributo anonimous sea igual a true -->
-                            <em ng-if="cmtsCtrl.comment.anonymous"> Anonimo </em> a <span>Sep 12, 2014, 11:00:00 PM</span>
-                            </footer>
-                        </blockquote>
-                        <blockquote>
-                            <p>Nah, I hate it -_-</p>
-                            <footer>
-                            Por <em>Anonymous</em> on <span>Sep 12, 2014, 11:00:00 PM</span>
+                            Por y <a ng-if="!comment.anonymous" href="mailto:{{comment.email}}">{{comment.email}}</a> <!-- E insertaremos este elemento en el DOM cuando el atributo anonimous sea igual a true -->
+                            <em ng-if="comment.anonymous"> Anonimo </em> a <span> {{comment.date}}</span>
                             </footer>
                         </blockquote>
                     </div><!-- /panel-body-->

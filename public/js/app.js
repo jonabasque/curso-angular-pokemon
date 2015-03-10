@@ -58,7 +58,20 @@
                 //cambiamos el valor del campo email a cadena vacia.
                 this.comment.email = "";
             }
+        };
+
+        //Este es el metodo que ejecutarems cuando envien el formulario de comentario.
+        this.addComment = function(){
+
+            //Le agregamos a comment el atributo date con la fecha actual.
+            this.comment.date = Date.now();
+            //Le agregamos el comentario que nos pasan a el array de comentarios en ultima poisicion.
+            this.comments.push(this.comment);
+            //Después de insertar el comentario limpiamos el actual.
+            this.comment = {};
         }
+
+
     });
 
 
