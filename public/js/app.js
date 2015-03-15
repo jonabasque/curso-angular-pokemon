@@ -71,8 +71,17 @@
             this.comment = {};
         }
 
-
     });
+
+    //Exportamos también una directiva en nuestro modulo. El primer argumento es el nombre de la misma y el segundo es la funcion qe se ejecuta en la misma.
+    app.directive('pokemonData', function(){
+
+        return {
+            //Hay varios tipos de directivas, está será de tipo elemento.
+            restrict: 'E',
+            templateUrl: 'partials/pokemon-data.html'
+        }
+    })
 
 
 })();
