@@ -154,7 +154,8 @@
                         </div><!-- /panel-heading-->
                         <div class="panel-body">
                             <!-- Con la directiva ng-submit conseguimos enviar los datos a un metodo de nuestro controlador de nuestro modulo JS, en lugar de enviarlo directamente al backend  -->
-                            <form ng-submit="cmtsCtrl.addComment()" class="form-horizontal" role="form">
+                            <!--En el commit anterior nos faltaba controlar que solo se envíe si el form es completamente valido. Le agregamos que solo se envie si es valido con el helper $valid, como vemos ahora valida dos cosas si es valido y si lo añade-->
+                            <form ng-submit="commentsForm.$valid && cmtsCtrl.addComment()" class="form-horizontal" role="form">
                                 <div class="form-group">
                                     <div class="col-sm-6">
                                         <!-- Agregamos la directiva ng-model que asociaremos al objeto comment propiedad body-->
