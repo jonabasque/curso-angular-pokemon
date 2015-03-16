@@ -31,14 +31,13 @@
             <!-- pokemon -->
             <div ng-controller="PokemonController as pkmCtrl">
                 <div class="page-header">
-                    <h1>
-                        {{pkmCtrl.pokemon.name}} <small>{{pkmCtrl.pokemon.species}} </small>
-                        <span class="label label-primary pull-right">#{{pkmCtrl.pokemon.id}}</span>
-                    </h1>
+                    <!-- Añadimos nuestra directiva para separar el codigo -->
+                    <pokemon-name></pokemon-name>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <img class="avatar center-block" ng-src="img/pokemons/{{pkmCtrl.pokemon.name | lowercase}}.jpg">
+                        <!-- Separamos el codigo con otra directiva propia -->
+                        <pokemon-image></pokemon-image>
                     </div>
 
                     <!-- Agregamos el controlador de Tabs para poder usar la lógica de nuestro controlador dentro de este elemento-->
@@ -56,121 +55,25 @@
 
                         <!-- Usamos la directiva ng-show por si sola (sin depender de otra directiva como hacemos en las flechas de la evolución) para mostra o no el contenido del tab cuando el valor sea el suyo, que lo cambiaremos cuando se pulse ene el-->
                     <div ng-show="tabs.tab === 1"> <!--Pokedex-->
-                    <!--Hemos trasladado el contenido de nuestro elemento a un partial y lo incluimos con nuestra directiva de tipo E de element, el nombre de la directiva es camelcase pero la etiqueta es como el nombre del archivo-->
-                    <pokemon-data></pokemon-data>
-
+                        <!--Hemos trasladado el contenido de nuestro elemento a un partial y lo incluimos con nuestra directiva de tipo E de element, el nombre de la directiva es camelcase pero la etiqueta es como el nombre del archivo-->
+                        <pokemon-data></pokemon-data>
                     </div>
 
                     <!-- Hacemos lo mismo que con el tab de caracteristicas-->
                     <div ng-show="tabs.tab === 2"> <!-- Stadisticas -->
-                      <ul class="list-group">
-                        <li class="list-group-item">
-                          <strong>HP</strong>
-                          <span class="badge">{{pkmCtrl.pokemon.stats.hp}}</span>
-                        </li>
-                        <li class="list-group-item">
-                          <strong>Ataque</strong>
-                          <span class="badge">{{pkmCtrl.pokemon.stats.attack}}</span>
-                        </li>
-                        <li class="list-group-item">
-                          <strong>Defensa</strong>
-                          <span class="badge">{{pkmCtrl.pokemon.stats.defense}}</span>
-                        </li>
-                        <li class="list-group-item">
-                          <strong>Ataque Especial</strong>
-                          <span class="badge">{{pkmCtrl.pokemon.stats['sp.atk']}}</span>
-                        </li>
-                        <li class="list-group-item">
-                          <strong>Defensa Especial</strong>
-                          <span class="badge">{{pkmCtrl.pokemon.stats['sp.def']}}</span>
-                        </li>
-                        <li class="list-group-item">
-                          <strong>Velocidad</strong>
-                          <span class="badge">{{pkmCtrl.pokemon.stats.speed}}</span>
-                        </li>
-                        <li class="list-group-item">
-                          <strong>Total</strong>
-                          <span class="badge">{{pkmCtrl.pokemon.stats.total}}</span>
-                        </li>
-                      </ul>
+                        <pokemon-stats></pokemon-stats>
                     </div>
 
                     <!-- Y hacemos lo mismo que con caracteristicas y estadisticas -->
                     <div ng-show="tabs.tab === 3"> <!-- Evolution -->
-                        <!--Repetimos este div tantas veces como elementos tengamos en el array evolution y así dibujamos su evolución, tal y comom hemos hecho en los stributos type y abilities de las caracteristicas del pokemon -->
-                        <div class="text-center" ng-repeat="pokemon in pkmCtrl.pokemon.evolution">
-                            <a href="#">
-                              <img src="img/pokemons/{{pokemon | lowercase}}.jpg" width="160">
-                              <p>
-                                <strong>{{pokemon}}</strong>
-                              </p>
-                            </a>
-                            <!-- como no queremos la flecha hacia abajo en el último pokemon, usamos la directiva ng-hide que nos esconderá el elemento que le indiquemos de la iteracción con ng-repeat -->
-                            <span ng-hide="$last" class="glyphicon glyphicon-arrow-down"></span>
-                        </div>
+                        <pokemon-evolution></pokemon-evolution>
                     </div>
                     </div> <!--/tab-content-->
                 </div><!--/row-->
 
                 <!-- comments -->
-                <!-- Agregamos el controlador a la seccion de comentarios-->
-                <section ng-controller="ComentsController as cmtsCtrl">
-                    <!-- Cuando hagamos click en el boton mostraremos el div de comentarios-->
-                    <button ng-click="cmtsCtrl.toogle()" ng-hide="cmtsCtrl.show" class="btn btn-primary">Mostrar comentarios <span class="badge">{{cmtsCtrl.comments.length}}</span></button>
-                    <!--Bindeamos o asociamos el panel de comentarios a la propiedad show del controlador ComentsController -->
-                    <div ng-show="cmtsCtrl.show === true" class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h1 class="panel-title"> Comentarios
-                                <!-- Igual que en el button de ver comentarios añadimos la llamada al método toogle() para que nos cambie el estado. -->
-                                <button ng-click="cmtsCtrl.toogle()" class="close pull-right">&times;</button>
-                            </h1>
-                        </div><!-- /panel-heading-->
-                        <div class="panel-body">
-                            <!-- Con la directiva ng-submit conseguimos enviar los datos a un metodo de nuestro controlador de nuestro modulo JS, en lugar de enviarlo directamente al backend  -->
-                            <!--En el commit anterior nos faltaba controlar que solo se envíe si el form es completamente valido. Le agregamos que solo se envie si es valido con el helper $valid, como vemos ahora valida dos cosas si es valido y si lo añade-->
-                            <form ng-submit="commentsForm.$valid && cmtsCtrl.addComment()" class="form-horizontal" role="form">
-                                <div class="form-group">
-                                    <div class="col-sm-6">
-                                        <!-- Agregamos la directiva ng-model que asociaremos al objeto comment propiedad body-->
-                                        <textarea ng-model="cmtsCtrl.comment.body"placeholder="Comenta algo acerca de  {{pkmCtrl.pokemon.name}}" class="form-control" required></textarea>
-                                        <!-- Como vemos encima le agregamos required que es un atributo de HTML5 para decirle que este campo es requerido -->
-                                    </div>
-                                <div class="col-sm-4">
-                                <!-- Ahora cambiamos ng-model usando el controlador u accediendo a su objeto comment para tener la lógica en el controlador.-->
-                                <!-- Y con la directiva ng-disabled desabilitamos el input de formulario cuando la expresión sea true-->
-                                <input ng-model="cmtsCtrl.comment.email" ng-disabled="cmtsCtrl.comment.anonymous" type="email" placeholder="Inserta tu email" class="form-control" ng-required="!cmtsCtrl.comment.anonymous"> <!-- Le agregamos la directiva ng-require para que sea requerido cuando el campo anonymous no sea true, osea el comentario no sea anonimo. -->
-                                <label>
-                                <!-- De la misma manera agregamos la propiedad anonimous del objeto comment al checkbox-->
-                                <!--Cuando cambie el campo como anonimo, necesitamos que cuando se marque el checkbox nos cambie el campo email a candena vacia -->
-                                <input ng-model="cmtsCtrl.comment.anonymous" id="anonymous" ng-change="cmtsCtrl.anonymousChanged()" type="checkbox">
-                                Anónimo
-                                </label>
-                            </div>
-                            <div class="col-sm-2">
-                                <!-- Le incluimos el atributo type con valor submit al boton para enviar el formulario a un metodo del controlador que pongamos en la directiva ng-submit-->
-                                <button type="submit" class="btn btn-lg">Comentario</button>
-                            </div>
-                          </div>
-                        </form>
-                        <!-- También podemos hacer con al atributo helper $valid que nos proporciona Angular y con la directiva ng-if el mostrado o no de este elemento de avisto cuando no es valido. -->
-                        <div ng-if="!commentsForm.$valid" class="alert alert-danger">Formulario invalido</div>
-                        <!-- Con la directiv ng-repeat mostramos todos los comentarios del array comments-->
-                        <blockquote ng-repeat="comment in cmtsCtrl.comments">
-                            <!-- Ahora relacionamos la propiedad body con este elemento. -->
-                            <p>{{comment.body}}</p>
-                            <footer>
-                            <!-- La propiedad email con este-->
-                            <!-- Con la directiva ng-if quitamos del DOM el elemnto si cuando la condición es true-->
-                            Por <a ng-if="!comment.anonymous" href="mailto:{{comment.email}}">{{comment.email}}</a> <!-- E insertaremos este elemento en el DOM cuando el atributo anonimous sea igual a true  O ES IGUAL A VACIO ???-->
-                            <em ng-if="comment.anonymous"> Anonimo </em> a
-                            <!-- Usamos el filtro date con el parámetro medium para que nos devuelva el timestam que nos devuelve el atributo en dicho formato -->
-                            <span>
-                            {{comment.date | date : "medium" }}</span>
-                            </footer>
-                        </blockquote>
-                    </div><!-- /panel-body-->
-                  </div> <!-- /panel-primary-->
-                </section><!-- /comments -->
+                <!-- quitamos el div padre que solo hacía el efecto de enlazarnos con el controlador de la logica de los cometnarios. -->
+                <pokemon-comments></pokemon-comments>
             </div> <!-- /pokemon -->
         </div> <!--/container-->
         <script src="js/lib/angular.min.js"></script>

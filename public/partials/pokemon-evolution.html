@@ -1,0 +1,9 @@
+<div class="text-center" ng-repeat="pokemon in pkmCtrl.pokemon.evolution">
+    <a href="#">
+      <img src="img/pokemons/{{pokemon | lowercase}}.jpg" width="160">
+      <p>
+        <strong>{{pokemon}}</strong>
+      </p>
+    </a>
+    <span ng-hide="$last" class="glyphicon glyphicon-arrow-down"></span>
+</div>

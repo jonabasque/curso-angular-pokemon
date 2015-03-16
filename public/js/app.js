@@ -39,40 +39,6 @@
         };
     });
 
-    //Creamos el controladro de comentarios
-    app.controller('ComentsController', function(){
-        this.comments = [];
-        this.show = false; //para mostrar o no el panel.
-        //Aqui tendremos el último comentario.
-        this.comment = {};
-
-        //cada vez que ejecutemos este método invertiremos el estado de show
-        this.toogle = function(){
-            this.show = !this.show;
-        };
-
-        //llamaremos a este método cada dez que se marque el checkbox, gracias a la directiva ng-change
-        this.anonymousChanged = function(){
-            //Si nuestro checkbox está a true...
-            if(this.comment.anonymous){
-                //cambiamos el valor del campo email a cadena vacia.
-                this.comment.email = "";
-            }
-        };
-
-        //Este es el metodo que ejecutarems cuando envien el formulario de comentario.
-        this.addComment = function(){
-
-            //Le agregamos a comment el atributo date con la fecha actual.
-            this.comment.date = Date.now();
-            //Le agregamos el comentario que nos pasan a el array de comentarios en ultima poisicion.
-            this.comments.push(this.comment);
-            //Después de insertar el comentario limpiamos el actual.
-            this.comment = {};
-        }
-
-    });
-
     //Exportamos también una directiva en nuestro modulo. El primer argumento es el nombre de la misma y el segundo es la funcion qe se ejecuta en la misma.
     app.directive('pokemonData', function(){
 
@@ -81,7 +47,65 @@
             restrict: 'E',
             templateUrl: 'partials/pokemon-data.html'
         }
-    })
+    });
 
+    //Creamos el resto de directivas para incluir elementos de la pagina concretos desde partials
+    app.directive('pokemonImage', function () {
+        return {
+            restrict: 'E',
+            templateUrl: 'partials/pokemon-image.html'
+        };
+    });
+
+    app.directive('pokemonName', function () {
+        return {
+            restrict: 'E',
+            templateUrl: 'partials/pokemon-name.html'
+        };
+    });
+
+    app.directive('pokemonStats', function () {
+        return {
+            restrict: 'E',
+            templateUrl: 'partials/pokemon-stats.html'
+        };
+    });
+
+    app.directive('pokemonEvolution', function () {
+        return {
+            retrict: 'E',
+            templateUrl: 'partials/pokemon-evolution.html'
+        };
+    });
+
+    app.directive('pokemonComments', function () {
+        return {
+            retrict: 'E',
+            templateUrl: 'partials/pokemon-comments.html',
+            //Agregamos la propiedad controller, que recibe una funcion que contiene toda la logica del controlador, es decir podemos trasladar el contenido de la funcion del controlador anterior y pegarlo aqui.Y esta directiva no solo tiene una llamada al contenido visual si no que tambien incluye un controlador.
+            controller: function () {
+              this.comments = [];
+              this.comment = {};
+              this.show = false;
+
+              this.toggle = function () {
+                this.show = !this.show;
+              };
+
+              this.anonymousChanged = function () {
+                if (this.comment.anonymous) {
+                  this.comment.email = "";
+                }
+              };
+
+              this.addComment = function () {
+                this.comment.date = Date.now();
+                this.comments.push(this.comment);
+                this.comment = {};
+              };
+            },
+            controllerAs: 'cmtsCtrl'
+        };
+    });
 
 })();
