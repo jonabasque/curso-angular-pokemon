@@ -7,7 +7,7 @@
                 //Hay varios tipos de directivas, está será de tipo elemento.
                 restrict: 'E',
                 templateUrl: 'partials/pokemon-data.html'
-            }
+            };
         })
         .directive('pokemonImage', function () {
             return {

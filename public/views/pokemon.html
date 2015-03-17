@@ -1,0 +1,47 @@
+<!-- pokemon -->
+<div ng-controller="PokemonController as pkmCtrl">
+    <div class="page-header">
+        <!-- Añadimos nuestra directiva para separar el codigo -->
+        <pokemon-name></pokemon-name>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Separamos el codigo con otra directiva propia -->
+            <pokemon-image></pokemon-image>
+        </div>
+
+        <!-- Agregamos el controlador de Tabs para poder usar la lógica de nuestro controlador dentro de este elemento-->
+        <div class="col-md-6" ng-controller="TabsController as tabs">
+            <ul class="nav nav-tabs nav-justified">
+
+                <!-- Ahora con el controlador tenemos que acceder a la variable mediante el alias del mismo -->
+                <li ng-class="active : tabs.tab === 1" ng-click="tabs.selectTab(1)"><a href="#">Pokedex</a></li>
+                <!-- En las directivas ng-click ahora cambiamos a usar una funcion que seleccione el tab que le indiquemos. -->
+                <li ng-class="active : tabs.tab === 2" ng-click="tabs.selectTab(2)"><a href="#">Estadisticas</a></li>
+                <li ng-class="active : tabs.tab === 3" ng-click="tabs.selectTab(3)"><a href="#">Evolución</a></li>
+            </ul>
+        <!-- Ahora con el controlador ya no tenemos que inicializar el valor a 1 por que ya lo estamos haciendo en el controlador.-->
+        <div class="tab-content">
+
+            <!-- Usamos la directiva ng-show por si sola (sin depender de otra directiva como hacemos en las flechas de la evolución) para mostra o no el contenido del tab cuando el valor sea el suyo, que lo cambiaremos cuando se pulse ene el-->
+        <div ng-show="tabs.tab === 1"> <!--Pokedex-->
+            <!--Hemos trasladado el contenido de nuestro elemento a un partial y lo incluimos con nuestra directiva de tipo E de element, el nombre de la directiva es camelcase pero la etiqueta es como el nombre del archivo-->
+            <pokemon-data></pokemon-data>
+        </div>
+
+        <!-- Hacemos lo mismo que con el tab de caracteristicas-->
+        <div ng-show="tabs.tab === 2"> <!-- Stadisticas -->
+            <pokemon-stats></pokemon-stats>
+        </div>
+
+        <!-- Y hacemos lo mismo que con caracteristicas y estadisticas -->
+        <div ng-show="tabs.tab === 3"> <!-- Evolution -->
+            <pokemon-evolution></pokemon-evolution>
+        </div>
+        </div> <!--/tab-content-->
+    </div><!--/row-->
+
+    <!-- comments -->
+    <!-- quitamos el div padre que solo hacía el efecto de enlazarnos con el controlador de la logica de los cometnarios. -->
+    <pokemon-comments></pokemon-comments>
+</div> <!-- /pokemon -->
