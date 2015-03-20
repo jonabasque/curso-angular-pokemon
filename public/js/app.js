@@ -12,14 +12,22 @@
     // hacemos la configuración del servicio que nos provee el modulo ngRoute con el objeto $routeProvider el cual es un servicio de tipo provider que hay que configurar antes de poder ser usado.
     app.config(['$routeProvider', function($routeProvider){
 
-        //El metodo when me va a hacer mach con la ruta. Y cuando recibe una petición a dicha ruta ejecut
+        //El metodo when me va a hacer mach con la ruta. Y cuando recibe una petición a dicha ruta ejecuta dicho controlador y se mostrara la ruta
         $routeProvider
             .when('/', {
+                //En esta ruta nos mostrara el listado de Pokemons, es la vista principal de la aplicacion
+                templateUrl: 'views/pokedex.html'
+            })
+            .when('/pokemon/:id', {
                 //de esta manera estamos inyectando solo el archivo htm...
                 templateUrl: 'views/pokemon.html',
                 //ahora le inyectamos el contrlador, ahora estamos usando Ajax, vamos a ver después como evitarlo.
                 controller: 'PokemonController',
                 controllerAs: 'pkmCtrl'
+            })
+            .otherwise({
+                //Si se escribe cualquier otra ruta nos redirige a la ruta principal
+                redirectTo: '/'
             });
 
     }]);
