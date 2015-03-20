@@ -1,5 +1,5 @@
 <!-- Cuando hagamos click en el boton mostraremos el div de comentarios-->
-<button ng-click="cmtsCtrl.toogle()" ng-hide="cmtsCtrl.show" class="btn btn-primary">Mostrar comentarios <span class="badge">{{cmtsCtrl.comments.length}}</span></button>
+<button ng-click="cmtsCtrl.toggle()" ng-hide="cmtsCtrl.show" class="btn btn-primary">Mostrar comentarios <span class="badge">{{cmtsCtrl.comments.length}}</span></button>
 <!--Bindeamos o asociamos el panel de comentarios a la propiedad show del controlador ComentsController -->
 <div ng-show="cmtsCtrl.show === true" class="panel panel-primary">
     <div class="panel-heading">

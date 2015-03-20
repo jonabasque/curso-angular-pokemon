@@ -1,4 +1,3 @@
-/*Estilos generales*/
 body {
   padding-top: 50px;
 }
@@ -24,16 +23,6 @@ body {
   padding: 10px;
 }
 
-
-.ng-invalid.ng-dirty {
-  border-color: #D9230F;
-}
-
-.ng-valid.ng-dirty {
-  border-color: #468847;
-}
-
-/*Estolos tipos de Pokemon*/
 .type {
   margin-left: 1px;
 }
@@ -127,3 +116,12 @@ body {
   background-color: #ee99ac;
   border: solid 1px #9b6470;
 }
+
+.ng-invalid.ng-dirty {
+  border-color: #D9230F;
+}
+
+.ng-valid.ng-dirty {
+  border-color: #468847;
+}
+
