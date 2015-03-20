@@ -16,7 +16,8 @@
         $routeProvider
             .when('/', {
                 //En esta ruta nos mostrara el listado de Pokemons, es la vista principal de la aplicacion
-                templateUrl: 'views/pokedex.html'
+                templateUrl: 'views/pokedex.html',
+                controller: 'PokedexController'
             })
             .when('/pokemon/:id', {
                 //de esta manera estamos inyectando solo el archivo htm...

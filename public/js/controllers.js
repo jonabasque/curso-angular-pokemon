@@ -1,6 +1,12 @@
 (function(){
     //Ahora cambiamos la variable app y asociamos los métodos directamente a nuestro modulo.
     angular.module('pokedex.controllers', [])
+        .controller('PokedexController', ['$scope', '$http', function($scope, $http){
+            $scope.pokemons = [];
+            $http.get('/pokemons.json').success(function(data){
+                $scope.pokemons = data;
+            });
+        }])
         .controller('PokemonController', function(){
             this.pokemon = {
                 id: "001",
