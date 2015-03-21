@@ -1,11 +1,15 @@
 (function(){
     //Ahora cambiamos la variable app y asociamos los métodos directamente a nuestro modulo.
     angular.module('pokedex.controllers', [])
-        .controller('PokedexController', ['$scope', '$http', function($scope, $http){
+        //Despues de crear nuestro modulo Service de tipo factory para hacer la peticion http ya no necesitamos usar el servicio $http de AngularJS, ahora usamos nuestro propio servicio.
+        .controller('PokedexController', ['$scope', 'pokemonService', function($scope, pokemonService){
             $scope.pokemons = [];
-            $http.get('/pokemons.json').success(function(data){
-                $scope.pokemons = data;
+
+            //Este método nos retorna una promesa y nos dira si se cumple y nos va poder entregar los datos o si njos va a fallar. entonces si .then se comple recibimos los datos que ejecutamos dentro de la función callaback del propio metodo.
+            pokemonService.all().then(function(data){
+                $scope.pokemons = data; //Con esto ya tenemos obtenida la logica de la vista de pokemon
             });
+
         }])
         //Ahora cambiamos ya al uso de $scope puesto que sin no no podemos usar la misma directiva de la misma manera en las dos vistas, en la de PokedexController y en la de PokemonController.
         //Ya no lo vinculamos a al controlador como this y tenemos que usar el controller y el alias en la vista, si no que tendremos el objeto en el $scope global que nos proporcional Angular.JS

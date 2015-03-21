@@ -5,7 +5,8 @@
         ['ngRoute',
          'pokedex.controllers',
          'pokedex.directives',
-         'pokedex.filters'
+         'pokedex.filters',
+         'pokedex.services' //agregamos el nuevo modulo como dependencia.
         ]
     );
 
