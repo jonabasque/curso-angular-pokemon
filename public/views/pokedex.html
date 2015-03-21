@@ -5,6 +5,7 @@
   <div ng-repeat="pokemon in pokemons">
     <h1>{{pokemon.name}} <small>{{pokemon.species}}</small></h1>
     <!-- Aagregamos el filtro que acabamos de crear normalize para solucionar el problema de los simbolos-->
-    <img ng-src="{{pokemon.name | normalize | imageify}}">
+    <!-- Pero, nos ha parecido que encadenar dos filtros no tenia sentido en este caso puesto que uno bien podría ser dependencia de otro y usarlo como tal en la lógica JS, asi que ya solo usando imageifly se filtraran los simbolos que nos daban problemas. -->
+    <img ng-src="{{pokemon.name | imageify}}">
   </div>
 </div>
