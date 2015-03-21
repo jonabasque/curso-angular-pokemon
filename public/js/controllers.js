@@ -7,8 +7,10 @@
                 $scope.pokemons = data;
             });
         }])
-        .controller('PokemonController', function(){
-            this.pokemon = {
+        //Ahora cambiamos ya al uso de $scope puesto que sin no no podemos usar la misma directiva de la misma manera en las dos vistas, en la de PokedexController y en la de PokemonController.
+        //Ya no lo vinculamos a al controlador como this y tenemos que usar el controller y el alias en la vista, si no que tendremos el objeto en el $scope global que nos proporcional Angular.JS
+        .controller('PokemonController', ['$scope',function($scope){
+            $scope.pokemon = {
                 id: "001",
                 name: 'Bulbasaur',
                 species : 'Seed Pokemon',
@@ -29,7 +31,7 @@
 
             };
 
-        })
+        }])
         .controller('TabsController', function(){
             this.tab = 1;
 

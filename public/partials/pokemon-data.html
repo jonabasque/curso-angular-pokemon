@@ -2,23 +2,24 @@
   <li class="list-group-item">
     <strong>Tipo: </strong>
     <span class="pull-right">
-        <span ng-repeat="type in pkmCtrl.pokemon.type" class="label type-{{type | lowercase }}">
+        <!-- Quitamos el alias puesto que ahora estamos vinculandolo al $scope y la variable pokemon está en cualquier parte de nuestro controlador -->
+        <span ng-repeat="type in pokemon.type" class="label type-{{type | lowercase }}">
             {{type}}
         </span>
     </span>
   </li>
   <li class="list-group-item">
     <strong>Altura:</strong>
-    <span class="pull-right">{{pkmCtrl.pokemon.height}}</span>
+    <span class="pull-right">{{pokemon.height}}</span>
   </li>
   <li class="list-group-item">
     <strong>Peso: </strong>
-    <span class="pull-right">{{pkmCtrl.pokemon.weight}}</span>
+    <span class="pull-right">{{pokemon.weight}}</span>
   </li>
   <li class="list-group-item">
       <strong>Habilidades: </strong>
       <ul>
-          <li ng-repeat="habilidad in pkmCtrl.pokemon.abilities">
+          <li ng-repeat="habilidad in pokemon.abilities">
           {{habilidad}}
       </ul>
   </li>

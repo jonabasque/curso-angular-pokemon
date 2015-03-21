@@ -23,8 +23,7 @@
                 //de esta manera estamos inyectando solo el archivo htm...
                 templateUrl: 'views/pokemon.html',
                 //ahora le inyectamos el contrlador, ahora estamos usando Ajax, vamos a ver después como evitarlo.
-                controller: 'PokemonController',
-                controllerAs: 'pkmCtrl'
+                controller: 'PokemonController'
             })
             .otherwise({
                 //Si se escribe cualquier otra ruta nos redirige a la ruta principal
