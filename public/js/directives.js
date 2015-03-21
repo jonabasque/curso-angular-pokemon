@@ -1,6 +1,12 @@
 (function () {
 
   angular.module('pokedex.directives', [])
+    .directive('pokemonType', function(){
+        return {
+            restrict: 'E',
+            templateUrl: 'partials/pokemon-type.html'
+        };
+    })
     .directive('pokemonName', function () {
       return {
         restrict: 'E',

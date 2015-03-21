@@ -2,10 +2,8 @@
   <li class="list-group-item">
     <strong>Tipo: </strong>
     <span class="pull-right">
-        <!-- Quitamos el alias puesto que ahora estamos vinculandolo al $scope y la variable pokemon está en cualquier parte de nuestro controlador -->
-        <span ng-repeat="type in pokemon.type" class="label type-{{type | lowercase }}">
-            {{type}}
-        </span>
+        <!-- Usamos la directiva nueva pokemon-type -->
+        <pokemon-type></pokemon-type>
     </span>
   </li>
   <li class="list-group-item">
