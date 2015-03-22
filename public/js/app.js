@@ -20,7 +20,8 @@
                 templateUrl: 'views/pokedex.html',
                 controller: 'PokedexController'
             })
-            .when('/pokemon/:id', {
+            //cambiamos el id por el name puesto que hemos cambiado la manera de seleccionar el pokemon y recogeremos este paramentro con el servicio $routeParams
+            .when('/pokemon/:name', {
                 //de esta manera estamos inyectando solo el archivo htm...
                 templateUrl: 'views/pokemon.html',
                 //ahora le inyectamos el contrlador, ahora estamos usando Ajax, vamos a ver después como evitarlo.
