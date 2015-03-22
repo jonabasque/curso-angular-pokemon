@@ -20,6 +20,11 @@
                 templateUrl: 'views/pokedex.html',
                 controller: 'PokedexController'
             })
+            //incluimos la ruta type para llamarla cuando querramos ver solo los pokemons de un tipo.
+            .when('/:type', {
+                templateUrl: 'views/pokedex.html', //Usamos el mismo template que usamos para todos los elementos.
+                controller: 'PokedexController'
+            })
             //cambiamos el id por el name puesto que hemos cambiado la manera de seleccionar el pokemon y recogeremos este paramentro con el servicio $routeParams
             .when('/pokemon/:name', {
                 //de esta manera estamos inyectando solo el archivo htm...

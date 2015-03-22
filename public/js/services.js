@@ -42,10 +42,35 @@
 
             };
 
+            //Añadimos el metodo byType para mostrar solo los Pokemons de una tipo.
+            function byType(type){
+                //Normalizamos el string type
+                type = normalize(type);
+
+                var deferred = $q.defer();
+
+                //Usamos la funcion all() para traner todos pero los filtramos, para coger solo los del tipo que nos pasan.
+                all().then(function(data){
+                    // devolveremos un array results con los pokemons.
+                    var results = data.filter(function(pokemon){
+                        //ahora normalizamos el valor que recogemos y lo comparamos con el que nos han pasado para retornar los que sean iguals.
+                        return pokemon.type.some(function(t){
+                            return normalize(t) === type;
+                        });
+                    });
+
+                    deferred.resolve(results);
+
+                });
+
+                return deferred.promise;
+            };
+
 
             return {
                 all : all,
-                byName : byName
+                byName : byName,
+                byType : byType
             }
         }]);
 
